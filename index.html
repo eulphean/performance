@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mana Performance Live Stream
+    </title>
+    <style> 
+      body {
+        padding: 0; margin: 0;
+      }
+
+      @font-face {
+          font-family: 'bebas_neueregular';
+          src: url('bebasneue-webfont.woff2') format('woff2'),
+              url('bebasneue-webfont.woff') format('woff');
+          font-weight: normal;
+          font-style: normal;
+      }
+
+      .status {
+        display: flex; 
+        position: absolute;
+        align-items: center;
+        justify-content: space-between;
+        padding: 20px; 
+        z-index: 2;
+        flex-direction: row;
+        top: 0px;
+        left:0px;
+        right: 0px;
+        font-size: 20px;
+      }
+
+      .label {
+        background-color: #D0011B;
+        border-radius: 10px;
+        letter-spacing: 3px;
+        color: #FCF0E1;
+        padding: 10px;
+        font-family: 'bebas_neueregular';
+      }
+
+      #video-canvas {
+        width: 100vw;
+        height: 100vh;
+      }
+
+      .moment {
+        display: flex;
+        flex-direction: column;
+        letter-spacing: 2px;
+        color: #FCF0E1; 
+        align-items: right;
+        font-family: 'bebas_neueregular';
+      }
+    </style>
+    <script type="text/javascript" src="Library/jsmpeg.min.js"></script>
+  </head>
+  <body>
+    <div class=container>
+        <div class="video">
+          <canvas id="video-canvas"></canvas>
+        </div>
+        <div class="status">
+          <div class="label">
+              LIVE
+          </div>
+          <div class="moment">
+            <div class="city">
+              CHICAGO, USA
+            </div>
+            <div class="date">
+            </div>
+            <div class="time">
+            </div>
+          </div>
+        </div>
+    </div>
+  </body>
+  <script>
+    var canvas = document.getElementById('video-canvas');
+    var url = 'ws://' + 'radiant-oasis-49153.herokuapp.com/'; 
+    var player = new JSMpeg.Player(url, {canvas: canvas});
+    
+    var d = new Date(); 
+    var dateOptions = { year: 'numeric', month: 'long', day: 'numeric' };
+    var dateContainer = document.getElementsByClassName('date')[0];
+    var timeContainer = document.getElementsByClassName('time')[0];
+    timeContainer.innerHTML = d.toLocaleTimeString('en-US');
+    dateContainer.innerHTML = d.toLocaleDateString('en-US', dateOptions);
+  </script>
+</html>
